@@ -1,8 +1,8 @@
 package service;
 
-import main.java.model.Client;
-import main.java.model.Rental;
-import main.java.repo.Repository;
+import model.Client;
+import model.Rental;
+import repo.Repository;
 
 /**
  * Rental Service

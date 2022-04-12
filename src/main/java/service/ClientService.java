@@ -1,7 +1,7 @@
 package service;
 
-import main.java.model.Client;
-import main.java.repo.Repository;
+import model.Client;
+import repo.Repository;
 
 /**
  * Client Service

@@ -1,9 +1,10 @@
 package ui;
 
-import main.java.model.Client;
-import main.java.service.ClientService;
-import main.java.service.CarService;
-import main.java.service.RentalService;
+import model.Client;
+import service.ClientService;
+import service.CarService;
+import service.GasStationService;
+import service.RentalService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,11 +60,13 @@ public class UI {
     private final CarService carService;
     private final ClientService clientService;
     private final RentalService rentalService;
+    private final GasStationService gasStationService;
 
     UICommand[] mainCommands = {
             new RunCommand("1", "enter client service", this::enterClientService),
             new RunCommand("2", "enter car service", this::enterMovieService),
             new RunCommand("3", "enter rental service", this::enterRentalService),
+            new RunCommand("4", "enter gas station service", this::enterRentalService),
     };
     UICommand[] clientCommands = {
             new RunCommand("0", "back", this::enterMainMenu),
@@ -144,10 +147,11 @@ public class UI {
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
-    public UI(CarService carService, ClientService clientService, RentalService rentalService) {
+    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService) {
         this.carService = carService;
         this.clientService = clientService;
         this.rentalService  = rentalService;
+        this.gasStationService = gasStationService;
     }
 
     private void showCommandList(UICommand[] cmdList) {

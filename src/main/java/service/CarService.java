@@ -1,7 +1,7 @@
 package service;
 
-import main.java.model.Car;
-import main.java.repo.Repository;
+import model.Car;
+import repo.Repository;
 
 import java.util.Comparator;
 import java.util.List;

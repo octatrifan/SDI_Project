@@ -1,8 +1,8 @@
 package service;
 
-import main.java.exception.ValidatorException;
-import main.java.model.BaseEntity;
-import main.java.repo.Repository;
+import exception.ValidatorException;
+import model.BaseEntity;
+import repo.Repository;
 
 import java.util.Optional;
 
