@@ -19,15 +19,14 @@ public class CarService extends AService <Integer, Car> {
         this.repo = repo;
     }
 
-    public Iterable<Car> filterByGenre(String genre) {
+    public Iterable<Car> filterByModel(String model) {
         return StreamSupport.stream(this.repo.findAll().spliterator(), false)
-                .filter(movie -> movie.getModel().equals(genre))
+                .filter(movie -> movie.getModel().equals(model))
                 .collect(Collectors.toList());
     }
 
     public Iterable<Car> sortByYear() {
-        List<Car> cars = StreamSupport.stream(this.repo.findAll().spliterator(), false).toList();
-        cars.sort(Comparator.comparing(Car::getMakeYear));
-        return cars;
+        return StreamSupport.stream(this.repo.findAll().spliterator(), false)
+                .sorted(Comparator.comparing(Car::getMakeYear)).collect(Collectors.toList());
     }
 }

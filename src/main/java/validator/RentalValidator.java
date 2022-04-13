@@ -24,7 +24,7 @@ public class RentalValidator implements IValidator<Rental> {
                 .filter(x -> x <= 0)
                 .ifPresent(s -> { throw new ValidatorException("Error: Found negative ID for rental client!"); });
 
-        Optional.of(rental.getMovieID())
+        Optional.of(rental.getCarID())
                 .filter(x -> x <= 0)
                 .ifPresent(s -> { throw new ValidatorException("Error: Found negative ID for rental movie!"); });
 
