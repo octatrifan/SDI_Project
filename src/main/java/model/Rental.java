@@ -4,18 +4,18 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Movie class
+ * Car class
  * @author Tudor
  */
 
 public class Rental extends BaseEntity<Integer> {
-    private Integer MovieID;
+    private Integer CarID;
     private Integer ClientID;
     private Date rentDate;
     private Date deadlineDate;
 
-    public Rental(Integer movieID, Integer clientID, Date rentDate, Date deadlineDate, boolean isRented) {
-        MovieID = movieID;
+    public Rental(Integer CarID, Integer clientID, Date rentDate, Date deadlineDate, boolean isRented) {
+        this.CarID = CarID;
         ClientID = clientID;
         this.rentDate = rentDate;
         this.deadlineDate = deadlineDate;
@@ -24,12 +24,12 @@ public class Rental extends BaseEntity<Integer> {
 
     private boolean isRented;
 
-    public Integer getMovieID() {
-        return MovieID;
+    public Integer getCarID() {
+        return CarID;
     }
 
-    public void setMovieID(Integer movieID) {
-        MovieID = movieID;
+    public void setCarID(Integer CarID) {
+        CarID = CarID;
     }
 
     public Integer getClientID() {
@@ -71,7 +71,7 @@ public class Rental extends BaseEntity<Integer> {
 
         Rental rental = (Rental) o;
 
-        if (!Objects.equals(MovieID, rental.MovieID)) return false;
+        if (!Objects.equals(CarID, rental.CarID)) return false;
         if (!Objects.equals(ClientID, rental.ClientID)) return false;
         if (!Objects.equals(rentDate, rental.rentDate)) return false;
         if (!Objects.equals(isRented, rental.isRented)) return false;
@@ -81,7 +81,7 @@ public class Rental extends BaseEntity<Integer> {
 
     @Override
     public int hashCode() {
-        int result = MovieID.hashCode();
+        int result = CarID.hashCode();
         result = 31 * result + ClientID.hashCode();
         result = 31 * result + rentDate.hashCode();
         result = 31 * result + deadlineDate.hashCode();
@@ -91,7 +91,7 @@ public class Rental extends BaseEntity<Integer> {
     @Override
     public String toString() {
         return "Rental{" +
-                "MovieID=" + MovieID +
+                "CarID=" + CarID +
                 ", ClientID=" + ClientID +
                 ", rentDate=" + rentDate +
                 ", deadlineDate=" + deadlineDate +

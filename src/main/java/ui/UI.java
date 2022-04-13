@@ -89,7 +89,7 @@ public class UI {
     UICommand[] carCommands = {
             new RunCommand("0", "back", this::enterMainMenu),
             new RunCommand("1", "add", this::addCar),
-//            new RunCommand("2", "remove", this::removeCar),
+            new RunCommand("2", "remove", this::removeCar),
             new RunCommand("3", "update", this::updateCar),
             new RunCommand("4", "show all", this::showCars),
     };
@@ -188,16 +188,19 @@ public class UI {
     }
 
     private void addRental() {
-        Integer MovieID = readInt("Movie ID:");
+        Integer id = readInt("ID:");
+        Integer CarID = readInt("Car ID:");
         Integer ClientID = readInt("Client ID:");
         Date rentDate = readDate("Rent date:");
         Date deadlineDate = readDate("Deadline date:");
 //        Boolean isRented = readBoolean("Is rented: ");
-        Rental rental = new Rental(MovieID, ClientID, rentDate, deadlineDate, true);
+        Rental rental = new Rental(CarID, ClientID, rentDate, deadlineDate, true);
+        rental.setId(id);
 
+        this.rentalService.save(rental);
+        System.out.println("Added id");
         try {
-            this.rentalService.save(rental);
-            System.out.println("Added id");
+
         }
         catch (Exception e)
         {
@@ -218,13 +221,14 @@ public class UI {
         }
     }
     private void updateRental() {
-        Integer MovieID = readInt("Movie ID:");
+        Integer id = readInt("ID:");
+        Integer CarID = readInt("Car ID:");
         Integer ClientID = readInt("Client ID:");
         Date rentDate = readDate("Rent date:");
         Date deadlineDate = readDate("Deadline date:");
 //        Boolean isRented = readBoolean("Is rented: ");
-        Rental rental = new Rental(MovieID, ClientID, rentDate, deadlineDate, true);
-
+        Rental rental = new Rental(CarID, ClientID, rentDate, deadlineDate, true);
+        rental.setId(id);
         try {
             this.rentalService.update(rental);
             System.out.println("Added id");
@@ -241,10 +245,12 @@ public class UI {
     }
 
     private void addCar() {
+        Integer id = readInt("ID:");
         String brand = readString("Brand:");
         String model = readString("Model:");
         Integer year = readInt("Year:");
         Car car = new Car(brand, model, year);
+        car.setId(id);
 
         this.carService.save(car);
         System.out.println("Added id");
@@ -260,7 +266,7 @@ public class UI {
     private void removeCar() {
         Integer id = readInt("ID:");
         try {
-            this.rentalService.delete(id);
+            this.carService.delete(id);
             System.out.println("Removed by id");
         }
         catch (Exception e)
@@ -270,11 +276,12 @@ public class UI {
         }
     }
     private void updateCar() {
+        Integer id = readInt("ID:");
         String brand = readString("Brand:");
         String model = readString("Model:");
         Integer year = readInt("Year:");
         Car car = new Car(brand, model, year);
-
+        car.setId(id);
         try {
             this.carService.update(car);
             System.out.println("Added id");
