@@ -10,7 +10,11 @@ public class Main {
                 new ClientService(new InMemoryRepo<Integer, Client>(new ClientValidator())),
                 new RentalService(new InMemoryRepo<Integer, Rental>(new RentalValidator())),
                 new GasStationService(new InMemoryRepo<Integer, GasStation>(new GasStationValidator())),
-                new RentalFirmService(new InMemoryRepo<Integer, RentalFirm>(new RentalFirmValidator())));
+                new RentalFirmService(new InMemoryRepo<Integer, RentalFirm>(new RentalFirmValidator())),
+
+                new FuelingService(new InMemoryRepo<Integer, Fueling>(new FuelingValidator())));
+                new EmployeeService(new InMemoryRepo<Integer, Employee>(new EmployeeValidator())));
+
         ui.enterMainMenu();
     }
 }
