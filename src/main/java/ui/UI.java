@@ -55,19 +55,21 @@ class RunCommand extends UICommand {
 
 
 public class UI {
-    private final CarService carService;
-    private final ClientService clientService;
-    private final RentalService rentalService;
-    private final GasStationService gasStationService;
-    private final RentalFirmService rentalFirmService;
+    private CarService carService;
+    private ClientService clientService;
+    private RentalService rentalService;
+    private GasStationService gasStationService;
+    private RentalFirmService rentalFirmService;
+    private FuelingService fuelingService;
 
     UICommand[] mainCommands = {
             new ExitCommand("0", "exit"),
             new RunCommand("1", "enter client service", this::enterClientService),
             new RunCommand("2", "enter car service", this::enterMovieService),
             new RunCommand("3", "enter rental service", this::enterRentalService),
-            new RunCommand("4", "enter gas station service", this::enterRentalService),
-            new RunCommand("5", "enter rental firm service", this::enterRentalFirmService)
+            new RunCommand("4", "enter gas station service", this::enterGasStationService),
+            new RunCommand("5", "enter rental firm service", this::enterRentalFirmService),
+            new RunCommand("6", "enter fueling service", this::enterFuelingService)
     };
 
     UICommand[] clientCommands = {
@@ -95,6 +97,14 @@ public class UI {
     }
 
     public void enterRentalService() {
+
+    }
+
+    public void enterGasStationService() {
+
+    }
+
+    public void enterFuelingService() {
 
     }
 
@@ -221,12 +231,13 @@ public class UI {
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
-    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService) {
+    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService, FuelingService fuelingService) {
         this.carService = carService;
         this.clientService = clientService;
         this.rentalService  = rentalService;
         this.gasStationService = gasStationService;
         this.rentalFirmService = rentalFirmService;
+        this.fuelingService = fuelingService;
     }
 
     private void showCommandList(UICommand[] cmdList) {
