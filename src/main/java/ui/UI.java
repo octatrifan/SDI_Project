@@ -53,14 +53,16 @@ class RunCommand extends UICommand {
     }
 }
 
-
 public class UI {
+
     private CarService carService;
     private ClientService clientService;
     private RentalService rentalService;
     private GasStationService gasStationService;
     private RentalFirmService rentalFirmService;
     private FuelingService fuelingService;
+
+    private final EmployeeService employeeService;
 
     UICommand[] mainCommands = {
             new ExitCommand("0", "exit"),
@@ -231,13 +233,14 @@ public class UI {
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
-    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService, FuelingService fuelingService) {
+    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService, EmployeeService employeeService) {
         this.carService = carService;
         this.clientService = clientService;
         this.rentalService  = rentalService;
         this.gasStationService = gasStationService;
         this.rentalFirmService = rentalFirmService;
         this.fuelingService = fuelingService;
+        this.employeeService = employeeService;
     }
 
     private void showCommandList(UICommand[] cmdList) {
