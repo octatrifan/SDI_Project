@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Movie class
- * @author Ani
+ * Car domain class
+ * @author Dani
  */
 
 public class Car extends BaseEntity<Integer> {

@@ -5,13 +5,14 @@ import java.util.Objects;
 
 /**
  * Car class
- * @author Tudor
+ * @author Octa
  */
 
 public class Rental extends BaseEntity<Integer> {
     private String RentalFirm;
     private Integer CarID;
     private Integer ClientID;
+    private String RentalFirm;
     private Date rentDate;
     private Date deadlineDate;
 
@@ -22,8 +23,6 @@ public class Rental extends BaseEntity<Integer> {
         this.rentDate = rentDate;
         this.deadlineDate = deadlineDate;
         this.isRented = isRented;
-
-    }
 
     public Rental(Integer CarID, Integer clientID, Date rentDate, Date deadlineDate, boolean isRented) {
         this.CarID = CarID;
@@ -40,8 +39,8 @@ public class Rental extends BaseEntity<Integer> {
         return CarID;
     }
 
-    public void setCarID(Integer CarID) {
-        CarID = CarID;
+    public void setCarID(Integer carID) {
+        CarID = carID;
     }
 
     public Integer getClientID() {
@@ -76,6 +75,10 @@ public class Rental extends BaseEntity<Integer> {
         isRented = rented;
     }
 
+    public String getRentalFirm() {return RentalFirm;}
+
+    public void setRentalFirm(String rentalFirm) {RentalFirm = rentalFirm;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,6 +87,7 @@ public class Rental extends BaseEntity<Integer> {
         Rental rental = (Rental) o;
 
         if (!Objects.equals(CarID, rental.CarID)) return false;
+        if (!Objects.equals(RentalFirm, rental.RentalFirm)) return false;
         if (!Objects.equals(ClientID, rental.ClientID)) return false;
         if (!Objects.equals(rentDate, rental.rentDate)) return false;
         if (!Objects.equals(isRented, rental.isRented)) return false;
@@ -95,6 +99,7 @@ public class Rental extends BaseEntity<Integer> {
     public int hashCode() {
         int result = CarID.hashCode();
         result = 31 * result + ClientID.hashCode();
+        result = 31 * result + RentalFirm.hashCode();
         result = 31 * result + rentDate.hashCode();
         result = 31 * result + deadlineDate.hashCode();
         return result;
@@ -105,6 +110,7 @@ public class Rental extends BaseEntity<Integer> {
         return "Rental{" +
                 "CarID=" + CarID +
                 ", ClientID=" + ClientID +
+                ", RentalFirm=" + RentalFirm +
                 ", rentDate=" + rentDate +
                 ", deadlineDate=" + deadlineDate +
                 ", isRented=" + isRented +

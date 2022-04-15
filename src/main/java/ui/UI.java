@@ -3,10 +3,8 @@ package ui;
 import model.Car;
 import model.Client;
 import model.Rental;
-import service.ClientService;
-import service.CarService;
-import service.GasStationService;
-import service.RentalService;
+import model.RentalFirm;
+import service.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,19 +55,27 @@ class RunCommand extends UICommand {
     }
 }
 
-
 public class UI {
-    private final CarService carService;
-    private final ClientService clientService;
-    private final RentalService rentalService;
-    private final GasStationService gasStationService;
+
+    private CarService carService;
+    private ClientService clientService;
+    private RentalService rentalService;
+    private GasStationService gasStationService;
+    private RentalFirmService rentalFirmService;
+    private FuelingService fuelingService;
+
+    private final EmployeeService employeeService;
 
     UICommand[] mainCommands = {
+            new ExitCommand("0", "exit"),
             new RunCommand("1", "enter client service", this::enterClientService),
             new RunCommand("2", "enter car service", this::enterCarService),
             new RunCommand("3", "enter rental service", this::enterRentalService),
-            new RunCommand("4", "enter gas station service", this::enterRentalService),
+            new RunCommand("4", "enter gas station service", this::enterGasStationService),
+            new RunCommand("5", "enter rental firm service", this::enterRentalFirmService),
+            new RunCommand("6", "enter fueling service", this::enterFuelingService)
     };
+
     UICommand[] clientCommands = {
             new RunCommand("0", "back", this::enterMainMenu),
             new RunCommand("1", "add", this::addClient),
@@ -78,6 +84,7 @@ public class UI {
             new RunCommand("4", "show all", this::showClients),
     };
 
+
     UICommand[] rentalCommands = {
             new RunCommand("0", "back", this::enterMainMenu),
             new RunCommand("1", "add", this::addRental),
@@ -85,6 +92,16 @@ public class UI {
             new RunCommand("3", "update", this::updateRental),
             new RunCommand("4", "show all", this::showRentals),
     };
+    UICommand[] rentalFirmCommands = {
+            new RunCommand("0", "back", this::enterMainMenu),
+            new RunCommand("1", "add", this::addRentalFirm),
+            new RunCommand("2", "remove", this::removeRentalFirm),
+            new RunCommand("3", "update", this::updateRentalFirm),
+            new RunCommand("4", "show all", this::showRentalFirms),
+    };
+    public void enterClientService() {
+        showCommandList(clientCommands);
+    }
 
     UICommand[] carCommands = {
             new RunCommand("0", "back", this::enterMainMenu),
@@ -104,6 +121,19 @@ public class UI {
 
     public void enterCarService() {
         showCommandList(carCommands);
+    }
+
+    public void enterGasStationService() {
+
+    }
+
+    public void enterFuelingService() {
+
+    }
+
+    private void enterRentalFirmService()
+    {
+        showCommandList(rentalFirmCommands);
     }
 
     public void enterMainMenu() {
@@ -213,6 +243,21 @@ public class UI {
         try {
             this.rentalService.delete(id);
             System.out.println("Removed by id");
+
+    // RentalFirm UI part
+
+    private void addRentalFirm()
+    {
+        Integer id = readInt("ID:");
+        String name = readString("Name:");
+        String address = readString("Address:");
+        int noCars = readInt("Number of available cars:");
+        RentalFirm rentalFirm = new RentalFirm(name, address, noCars);
+        rentalFirm.setId(id);
+        try {
+            this.rentalFirmService.save(rentalFirm);
+            System.out.println("Added rental firm");
+
         }
         catch (Exception e)
         {
@@ -220,6 +265,7 @@ public class UI {
             System.out.println("Please try again!");
         }
     }
+
     private void updateRental() {
         Integer id = readInt("ID:");
         Integer CarID = readInt("Car ID:");
@@ -256,10 +302,19 @@ public class UI {
         System.out.println("Added id");
         try {
 
+
+    private void removeRentalFirm()
+    {
+        Integer id = readInt("ID:");
+        try {
+            this.rentalFirmService.delete(id);
+            System.out.println("Deleted rental firm");
+
         }
         catch (Exception e)
         {
             System.out.println(e);
+
             System.out.println("Please try again!");
         }
     }
@@ -285,6 +340,22 @@ public class UI {
         try {
             this.carService.update(car);
             System.out.println("Added id");
+            System.out.println("Rental firm cannot be deleted!");
+        }
+    }
+
+    private void updateRentalFirm()
+    {
+        Integer id = readInt("ID:");
+        String name = readString("New name:");
+        String address = readString("New address:");
+        int noCars = readInt("New number of available cars:");
+        RentalFirm rentalFirm = new RentalFirm(name, address, noCars);
+        rentalFirm.setId(id);
+        try {
+            this.rentalFirmService.update(rentalFirm);
+            System.out.println("Updated rental firm");
+
         }
         catch (Exception e)
         {
@@ -292,16 +363,29 @@ public class UI {
             System.out.println("Please try again!");
         }
     }
+
     private void showCars() {
         System.out.println(StreamSupport.stream(carService.sortByYear().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
     public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService) {
+
+
+    private void showRentalFirms()
+    {
+        System.out.println(StreamSupport.stream(rentalFirmService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService, EmployeeService employeeService) {
         this.carService = carService;
         this.clientService = clientService;
         this.rentalService  = rentalService;
         this.gasStationService = gasStationService;
+        this.rentalFirmService = rentalFirmService;
+        this.fuelingService = fuelingService;
+        this.employeeService = employeeService;
     }
 
     private void showCommandList(UICommand[] cmdList) {
