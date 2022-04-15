@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<store>
+  <rental_firm>
+    <id>1</id>
+    <rental_firm_name>Dougie's Sport Cars</rental_firm_name>
+    <address>somewhere in Nevada</address>
+    <available_cars>10</available_cars>
+  </rental_firm>
+</store>

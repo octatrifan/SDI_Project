@@ -19,10 +19,12 @@ public class GasStation extends BaseEntity<Integer> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
-        if (!(o instanceof GasStation that)) return false;
-        return Objects.equals(this.getId(), that.getId()) && getGasolinePrice() == that.getGasolinePrice() && getDieselPrice() == that.getDieselPrice() && Objects.equals(getGasStationName(), that.getGasStationName());
+        if (o == null || getClass() != o.getClass()) return false;
+        GasStation that = (GasStation) o;
+        return gasolinePrice == that.gasolinePrice && dieselPrice == that.dieselPrice && Objects.equals(gasStationName, that.gasStationName);
     }
 
     @Override

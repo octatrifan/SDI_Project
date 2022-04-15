@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<store>
+    <gas_station>
+        <id>1</id>
+        <gas_station_name>Big Ed's Gas Farm</gas_station_name>
+        <gasoline_price>7</gasoline_price>
+        <diesel_price>8</diesel_price>
+    </gas_station>
+</store>
