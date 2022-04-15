@@ -9,31 +9,29 @@ import java.util.Objects;
  */
 
 public class Rental extends BaseEntity<Integer> {
-    private String RentalFirm;
+    private Integer RentalFirmID;
     private Integer CarID;
     private Integer ClientID;
     private Date rentDate;
     private Date deadlineDate;
+    private boolean isRented;
 
-    public Rental(Integer carID, Integer clientID, String rentalFirm, Date rentDate, Date deadlineDate, boolean isRented) {
+    public Rental(Integer carID, Integer clientID, Integer rentalFirmID, Date rentDate, Date deadlineDate, boolean isRented) {
         CarID = carID;
         ClientID = clientID;
-        RentalFirm = rentalFirm;
+        RentalFirmID = rentalFirmID;
         this.rentDate = rentDate;
         this.deadlineDate = deadlineDate;
         this.isRented = isRented;
     }
 
-    public Rental(Integer CarID, Integer clientID, Date rentDate, Date deadlineDate, boolean isRented) {
-        this.CarID = CarID;
-        ClientID = clientID;
-        this.rentDate = rentDate;
-        this.deadlineDate = deadlineDate;
-        this.isRented = isRented;
-        this.RentalFirm = "none";
+    public Integer getRentalFirmID() {
+        return RentalFirmID;
     }
 
-    private boolean isRented;
+    public void setRentalFirmID(Integer rentalFirmID) {
+        RentalFirmID = rentalFirmID;
+    }
 
     public Integer getCarID() {
         return CarID;
@@ -75,10 +73,6 @@ public class Rental extends BaseEntity<Integer> {
         isRented = rented;
     }
 
-    public String getRentalFirm() {return RentalFirm;}
-
-    public void setRentalFirm(String rentalFirm) {RentalFirm = rentalFirm;}
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,7 +81,7 @@ public class Rental extends BaseEntity<Integer> {
         Rental rental = (Rental) o;
 
         if (!Objects.equals(CarID, rental.CarID)) return false;
-        if (!Objects.equals(RentalFirm, rental.RentalFirm)) return false;
+        if (!Objects.equals(RentalFirmID, rental.RentalFirmID)) return false;
         if (!Objects.equals(ClientID, rental.ClientID)) return false;
         if (!Objects.equals(rentDate, rental.rentDate)) return false;
         if (!Objects.equals(isRented, rental.isRented)) return false;
@@ -99,7 +93,7 @@ public class Rental extends BaseEntity<Integer> {
     public int hashCode() {
         int result = CarID.hashCode();
         result = 31 * result + ClientID.hashCode();
-        result = 31 * result + RentalFirm.hashCode();
+        result = 31 * result + RentalFirmID.hashCode();
         result = 31 * result + rentDate.hashCode();
         result = 31 * result + deadlineDate.hashCode();
         return result;
@@ -110,7 +104,7 @@ public class Rental extends BaseEntity<Integer> {
         return "Rental{" +
                 "CarID=" + CarID +
                 ", ClientID=" + ClientID +
-                ", RentalFirm=" + RentalFirm +
+                ", RentalFirmID=" + RentalFirmID +
                 ", rentDate=" + rentDate +
                 ", deadlineDate=" + deadlineDate +
                 ", isRented=" + isRented +

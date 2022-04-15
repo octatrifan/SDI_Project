@@ -218,10 +218,11 @@ public class UI {
         Integer id = readInt("ID:");
         Integer CarID = readInt("Car ID:");
         Integer ClientID = readInt("Client ID:");
+        Integer RentalFirmID = readInt("Rental Firm ID:");
         Date rentDate = readDate("Rent date:");
         Date deadlineDate = readDate("Deadline date:");
 //        Boolean isRented = readBoolean("Is rented: ");
-        Rental rental = new Rental(CarID, ClientID, rentDate, deadlineDate, true);
+        Rental rental = new Rental(CarID, ClientID, RentalFirmID, rentDate, deadlineDate, true);
         rental.setId(id);
 
         this.rentalService.save(rental);
@@ -272,10 +273,11 @@ public class UI {
         Integer id = readInt("ID:");
         Integer CarID = readInt("Car ID:");
         Integer ClientID = readInt("Client ID:");
+        Integer RentalFirmID = readInt("Rental Firm ID:");
         Date rentDate = readDate("Rent date:");
         Date deadlineDate = readDate("Deadline date:");
 //        Boolean isRented = readBoolean("Is rented: ");
-        Rental rental = new Rental(CarID, ClientID, rentDate, deadlineDate, true);
+        Rental rental = new Rental(CarID, ClientID, RentalFirmID, rentDate, deadlineDate, true);
         rental.setId(id);
         try {
             this.rentalService.update(rental);
