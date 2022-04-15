@@ -9,10 +9,21 @@ import java.util.Objects;
  */
 
 public class Rental extends BaseEntity<Integer> {
+    private String RentalFirm;
     private Integer CarID;
     private Integer ClientID;
     private Date rentDate;
     private Date deadlineDate;
+
+    public Rental(Integer carID, Integer clientID, String rentalFirm, Date rentDate, Date deadlineDate, boolean isRented) {
+        CarID = carID;
+        ClientID = clientID;
+        RentalFirm = rentalFirm;
+        this.rentDate = rentDate;
+        this.deadlineDate = deadlineDate;
+        this.isRented = isRented;
+
+    }
 
     public Rental(Integer CarID, Integer clientID, Date rentDate, Date deadlineDate, boolean isRented) {
         this.CarID = CarID;
@@ -20,6 +31,7 @@ public class Rental extends BaseEntity<Integer> {
         this.rentDate = rentDate;
         this.deadlineDate = deadlineDate;
         this.isRented = isRented;
+        this.RentalFirm = "none";
     }
 
     private boolean isRented;

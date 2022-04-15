@@ -293,7 +293,7 @@ public class UI {
         }
     }
     private void showCars() {
-        System.out.println(StreamSupport.stream(carService.findAll().spliterator(), false)
+        System.out.println(StreamSupport.stream(carService.sortByYear().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
