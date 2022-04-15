@@ -4,17 +4,17 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Rental class
+ * Car class
  * @author Octa
  */
 
 public class Rental extends BaseEntity<Integer> {
+    private String RentalFirm;
     private Integer CarID;
     private Integer ClientID;
     private String RentalFirm;
     private Date rentDate;
     private Date deadlineDate;
-
 
     public Rental(Integer carID, Integer clientID, String rentalFirm, Date rentDate, Date deadlineDate, boolean isRented) {
         CarID = carID;
@@ -24,6 +24,13 @@ public class Rental extends BaseEntity<Integer> {
         this.deadlineDate = deadlineDate;
         this.isRented = isRented;
 
+    public Rental(Integer CarID, Integer clientID, Date rentDate, Date deadlineDate, boolean isRented) {
+        this.CarID = CarID;
+        ClientID = clientID;
+        this.rentDate = rentDate;
+        this.deadlineDate = deadlineDate;
+        this.isRented = isRented;
+        this.RentalFirm = "none";
     }
 
     private boolean isRented;

@@ -3,6 +3,10 @@ package model;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Fueling class
+ * @author Filip
+ */
 public class Fueling extends BaseEntity<Integer> {
     public Car getCar() {
         return car;

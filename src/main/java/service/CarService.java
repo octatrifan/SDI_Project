@@ -26,7 +26,8 @@ public class CarService extends AService <Integer, Car> {
     }
 
     public Iterable<Car> sortByYear() {
-        return StreamSupport.stream(this.repo.findAll().spliterator(), false)
-                .sorted(Comparator.comparing(Car::getMakeYear)).collect(Collectors.toList());
+        List<Car> cars = StreamSupport.stream(this.repo.findAll().spliterator(), false).collect(Collectors.toList());
+        cars.sort(Comparator.comparing(Car::getMakeYear));
+        return cars;
     }
 }

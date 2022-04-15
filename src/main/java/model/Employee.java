@@ -3,6 +3,11 @@ package model;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Employee class
+ * @author Liviu
+ */
+
 public class Employee extends BaseEntity<Integer> {
     private String firstName;
     private String lastName;
