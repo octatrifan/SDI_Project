@@ -38,7 +38,7 @@ public class RentalFirm extends BaseEntity<Integer>
     @Override
     public String toString()
     {
-        return "RentalFirm{" +
+        return "RentalFirm{ ID=" + this.getId() +
                 ", rentalFirmName='" + rentalFirmName + '\'' +
                 ", address='" + address + '\'' +
                 ", availableCars=" + availableCars +

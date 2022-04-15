@@ -12,7 +12,6 @@ public class Rental extends BaseEntity<Integer> {
     private String RentalFirm;
     private Integer CarID;
     private Integer ClientID;
-    private String RentalFirm;
     private Date rentDate;
     private Date deadlineDate;
 
@@ -23,6 +22,7 @@ public class Rental extends BaseEntity<Integer> {
         this.rentDate = rentDate;
         this.deadlineDate = deadlineDate;
         this.isRented = isRented;
+    }
 
     public Rental(Integer CarID, Integer clientID, Date rentDate, Date deadlineDate, boolean isRented) {
         this.CarID = CarID;

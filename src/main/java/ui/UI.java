@@ -1,5 +1,6 @@
 package ui;
 
+import exception.ValidatorException;
 import model.Car;
 import model.Client;
 import model.Rental;
@@ -63,8 +64,7 @@ public class UI {
     private GasStationService gasStationService;
     private RentalFirmService rentalFirmService;
     private FuelingService fuelingService;
-
-    private final EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     UICommand[] mainCommands = {
             new ExitCommand("0", "exit"),
@@ -99,9 +99,6 @@ public class UI {
             new RunCommand("3", "update", this::updateRentalFirm),
             new RunCommand("4", "show all", this::showRentalFirms),
     };
-    public void enterClientService() {
-        showCommandList(clientCommands);
-    }
 
     UICommand[] carCommands = {
             new RunCommand("0", "back", this::enterMainMenu),
@@ -243,6 +240,11 @@ public class UI {
         try {
             this.rentalService.delete(id);
             System.out.println("Removed by id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     // RentalFirm UI part
 
@@ -291,16 +293,17 @@ public class UI {
     }
 
     private void addCar() {
-        Integer id = readInt("ID:");
-        String brand = readString("Brand:");
-        String model = readString("Model:");
-        Integer year = readInt("Year:");
-        Car car = new Car(brand, model, year);
-        car.setId(id);
+                Integer id = readInt("ID:");
+                String brand = readString("Brand:");
+                String model = readString("Model:");
+                Integer year = readInt("Year:");
+                Car car = new Car(brand, model, year);
+                car.setId(id);
 
-        this.carService.save(car);
-        System.out.println("Added id");
-        try {
+                this.carService.save(car);
+                System.out.println("Added id");
+
+    }
 
 
     private void removeRentalFirm()
@@ -341,6 +344,8 @@ public class UI {
             this.carService.update(car);
             System.out.println("Added id");
             System.out.println("Rental firm cannot be deleted!");
+        } catch (ValidatorException e) {
+            e.printStackTrace();
         }
     }
 
@@ -369,16 +374,13 @@ public class UI {
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
-    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService) {
-
-
     private void showRentalFirms()
     {
         System.out.println(StreamSupport.stream(rentalFirmService.findAll().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
-    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService, EmployeeService employeeService) {
+    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService,FuelingService fuelingService, EmployeeService employeeService) {
         this.carService = carService;
         this.clientService = clientService;
         this.rentalService  = rentalService;
