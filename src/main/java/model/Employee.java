@@ -1,6 +1,8 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -91,10 +93,11 @@ public class Employee extends BaseEntity<Integer> {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        return "Employee{ID=" + this.getId() +'\''+
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
+                ", birthDate=" + formatter.format(birthDate) +
                 ", email='" + email + '\'' +
                 ", salary='" + salary + '\'' +
                 '}';

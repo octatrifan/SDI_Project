@@ -1,6 +1,7 @@
 package repo.XMLRepo;
 
 import model.Client;
+import model.Employee;
 import org.w3c.dom.Element;
 import validator.IValidator;
 
@@ -10,19 +11,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Scanner;
 
 /**
- * XML Repo for Client Class
+ * XML Repo for Employee Class
  *
  * @author Octa.
  *
  */
 
 
-public class ClientXMLRepo extends XMLFileRepo<Integer, Client> {
+public class EmployeeXMLRepo extends XMLFileRepo<Integer, Employee> {
 
-    public ClientXMLRepo(IValidator<Client> validator, String filename) {
+    public EmployeeXMLRepo(IValidator<Employee> validator, String filename) {
         this.validator = validator;
         this.fileName = filename;
         this.entities = new HashMap<>();
@@ -36,51 +36,53 @@ public class ClientXMLRepo extends XMLFileRepo<Integer, Client> {
     }
 
     /**
-     * Transforms Element into Client instance
+     * Transforms Element into Employee instance
      * @param node - the element
      * @return Client
      *
      */
     @Override
-    Client createObject(Element node) {
+    Employee createObject(Element node) {
         int id = Integer.parseInt(getTextFromTagName(node, "id"));
         String firstname = getTextFromTagName(node, "firstname");
         String lastname = getTextFromTagName(node, "lastname");
         String birthdateString = getTextFromTagName(node, "birthdate");
         String email = getTextFromTagName(node, "email");
+        int salary = Integer.parseInt(getTextFromTagName(node, "salary"));
 
         Date birthdate;
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         try {
             birthdate =  formatter.parse(birthdateString);
-            Client c = new Client(firstname, lastname, birthdate, email);
-            c.setId(id);
-            return c;
+            Employee e = new Employee(firstname, lastname, birthdate, email, salary);
+            e.setId(id);
+            return e;
         }
         catch (ParseException ex) {
-            Client c = new Client(firstname, lastname, null, email);
-            c.setId(id);
-            return c;
+            Employee e = new Employee(firstname, lastname, null, email, salary);
+            e.setId(id);
+            return e;
         }
 
     }
 
     /**
-     * Transforms Client instance into Element
+     * Transforms Employee instance into Element
      * @param obj - the instance
      * @return Element
      *
      */
     @Override
-    Element ElementFromObject(Client obj) {
+    Element ElementFromObject(Employee obj) {
 
-        Element element = document.createElement("client");
+        Element element = document.createElement("employee");
         appendChildWithText(document, element, "id", obj.getId().toString());
         appendChildWithText(document, element, "firstname", obj.getFirstName());
         appendChildWithText(document, element, "lastname", obj.getLastName());
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         appendChildWithText(document, element, "birthdate", formatter.format(obj.getBirthDate()));
         appendChildWithText(document, element, "email", obj.getEmail());
+        appendChildWithText(document, element, "salary", Integer.toString(obj.getSalary().intValue()));
         return element;
     }
 }

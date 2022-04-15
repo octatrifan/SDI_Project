@@ -73,7 +73,8 @@ public class UI {
             new RunCommand("3", "enter rental service", this::enterRentalService),
             new RunCommand("4", "enter gas station service", this::enterGasStationService),
             new RunCommand("5", "enter rental firm service", this::enterRentalFirmService),
-            new RunCommand("6", "enter fueling service", this::enterFuelingService)
+            new RunCommand("6", "enter fueling service", this::enterFuelingService),
+            new RunCommand("7", "enter employee service", this::enterEmployeeService),
     };
 
     UICommand[] clientCommands = {
@@ -108,6 +109,16 @@ public class UI {
             new RunCommand("4", "show all", this::showCars),
     };
 
+    UICommand[] employeeCommands = {
+            new RunCommand("0", "back", this::enterMainMenu),
+            new RunCommand("1", "add", this::addEmployee),
+            new RunCommand("2", "remove", this::removeEmployee),
+            new RunCommand("3", "update", this::updateEmployee),
+            new RunCommand("4", "show all", this::showEmployees),
+    };
+
+
+
     public void enterClientService() {
         showCommandList(clientCommands);
     }
@@ -126,6 +137,10 @@ public class UI {
 
     public void enterFuelingService() {
 
+    }
+
+    public void enterEmployeeService() {
+        showCommandList(employeeCommands);
     }
 
     private void enterRentalFirmService()
@@ -380,6 +395,23 @@ public class UI {
     {
         System.out.println(StreamSupport.stream(rentalFirmService.findAll().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void showEmployees() {
+        System.out.println(StreamSupport.stream(employeeService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void updateEmployee() {
+
+    }
+
+    private void removeEmployee() {
+
+    }
+
+    private void addEmployee() {
+
     }
 
     public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService,FuelingService fuelingService, EmployeeService employeeService) {
