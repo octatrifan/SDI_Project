@@ -2,6 +2,7 @@ package service;
 
 import model.Car;
 import repo.Repository;
+import repo.dbRepo.PagingRepository;
 
 import java.util.Comparator;
 import java.util.List;
@@ -29,5 +30,10 @@ public class CarService extends AService <Integer, Car> {
         List<Car> cars = StreamSupport.stream(this.repo.findAll().spliterator(), false).collect(Collectors.toList());
         cars.sort(Comparator.comparing(Car::getMakeYear));
         return cars;
+    }
+
+    public Iterable<Car> getNextCars() {
+        PagingRepository <Integer, Car> repo = (PagingRepository<Integer, Car>) this.repo;
+        return repo.getNext().getContent().collect(Collectors.toList());
     }
 }
