@@ -2,14 +2,8 @@
 <store>
   <gas_station>
     <id>1</id>
-    <gas_station_name>Big Ed's Gas Farm</gas_station_name>
+    <gas_station_name>OMG</gas_station_name>
     <gasoline_price>7</gasoline_price>
-    <diesel_price>8</diesel_price>
-  </gas_station>
-  <gas_station>
-    <id>2</id>
-    <gas_station_name>petrom</gas_station_name>
-    <gasoline_price>10</gasoline_price>
-    <diesel_price>11</diesel_price>
+    <diesel_price>6</diesel_price>
   </gas_station>
 </store>

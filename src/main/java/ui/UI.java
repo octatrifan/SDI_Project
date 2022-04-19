@@ -117,8 +117,8 @@ public class UI {
     UICommand[] gasStationCommands = {
             new RunCommand("0", "back", this::enterMainMenu),
             new RunCommand("1", "add", this::addGasStation),
-            //new RunCommand("2", "remove", this::removeGasStation),
-            //new RunCommand("3", "update", this::updateGasStation),
+            new RunCommand("2", "remove", this::removeGasStation),
+            new RunCommand("3", "update", this::updateGasStation),
             new RunCommand("4", "show all", this::showGasStations),
     };
 
@@ -438,10 +438,42 @@ public class UI {
         }
     }
 
+    private void removeGasStation() {
+        Integer id = readInt("ID:");
+        try {
+            this.gasStationService.delete(id);
+            System.out.println("Removed by id");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
     private void showGasStations()
     {
         System.out.println(StreamSupport.stream(gasStationService.findAll().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void updateGasStation() {
+        Integer id = readInt("ID:");
+        String gasStationName = readString("Station Name:");
+        Integer gasolinePrice = readInt("Gas Price:");
+        Integer dieselPrice = readInt("Diesel Price:");
+
+        GasStation station = new GasStation(gasStationName, gasolinePrice, dieselPrice);
+        station.setId(id);
+        try {
+            this.gasStationService.update(station);
+            System.out.println("Updated client");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
     }
 
     public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService,FuelingService fuelingService, EmployeeService employeeService) {
