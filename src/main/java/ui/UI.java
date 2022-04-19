@@ -1,10 +1,7 @@
 package ui;
 
 import exception.ValidatorException;
-import model.Car;
-import model.Client;
-import model.Rental;
-import model.RentalFirm;
+import model.*;
 import service.*;
 
 import java.text.ParseException;
@@ -117,6 +114,14 @@ public class UI {
             new RunCommand("4", "show all", this::showEmployees),
     };
 
+    UICommand[] gasStationCommands = {
+            new RunCommand("0", "back", this::enterMainMenu),
+            new RunCommand("1", "add", this::addGasStation),
+            //new RunCommand("2", "remove", this::removeGasStation),
+            //new RunCommand("3", "update", this::updateGasStation),
+            new RunCommand("4", "show all", this::showGasStations),
+    };
+
 
 
     public void enterClientService() {
@@ -132,7 +137,7 @@ public class UI {
     }
 
     public void enterGasStationService() {
-
+        showCommandList(gasStationCommands);
     }
 
     public void enterFuelingService() {
@@ -412,6 +417,31 @@ public class UI {
 
     private void addEmployee() {
 
+    }
+
+    private void addGasStation() {
+        Integer id = readInt("ID:");
+        String gasStationName = readString("Station Name:");
+        Integer gasolinePrice = readInt("Gas Price:");
+        Integer dieselPrice = readInt("Diesel Price:");
+
+        GasStation station = new GasStation(gasStationName, gasolinePrice, dieselPrice);
+        station.setId(id);
+        try {
+            this.gasStationService.save(station);
+            System.out.println("Added id");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void showGasStations()
+    {
+        System.out.println(StreamSupport.stream(gasStationService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
     public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService,FuelingService fuelingService, EmployeeService employeeService) {
