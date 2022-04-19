@@ -36,4 +36,9 @@ public class CarService extends AService <Integer, Car> {
         PagingRepository <Integer, Car> repo = (PagingRepository<Integer, Car>) this.repo;
         return repo.getNext().getContent().collect(Collectors.toList());
     }
+
+    public Iterable<Car> getPrevCars() {
+        PagingRepository <Integer, Car> repo = (PagingRepository<Integer, Car>) this.repo;
+        return repo.getPrev().getContent().collect(Collectors.toList());
+    }
 }

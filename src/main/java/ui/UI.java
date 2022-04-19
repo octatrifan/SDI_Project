@@ -83,6 +83,8 @@ public class UI {
             new RunCommand("2", "remove", this::removeClient),
             new RunCommand("3", "update", this::updateClient),
             new RunCommand("4", "show all", this::showClients),
+            new RunCommand("5", "next page", this::showClientsNext),
+            new RunCommand("6", "prev page", this::showClientsPrev),
     };
 
 
@@ -107,6 +109,8 @@ public class UI {
             new RunCommand("2", "remove", this::removeCar),
             new RunCommand("3", "update", this::updateCar),
             new RunCommand("4", "show all", this::showCars),
+            new RunCommand("5", "next page", this::showCarsNext),
+            new RunCommand("6", "prev page", this::showCarsPrev),
     };
 
     UICommand[] employeeCommands = {
@@ -115,6 +119,8 @@ public class UI {
             new RunCommand("2", "remove", this::removeEmployee),
             new RunCommand("3", "update", this::updateEmployee),
             new RunCommand("4", "show all", this::showEmployees),
+            new RunCommand("5", "next page", this::showEmployeesNext),
+            new RunCommand("6", "prev page", this::showEmployeesPrev),
     };
 
 
@@ -226,6 +232,14 @@ public class UI {
     }
     private void showClients() {
         System.out.println(StreamSupport.stream(clientService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showClientsNext() {
+        System.out.println(StreamSupport.stream(clientService.getNextClients().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showClientsPrev() {
+        System.out.println(StreamSupport.stream(clientService.getPrevClients().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
@@ -390,6 +404,14 @@ public class UI {
         System.out.println(StreamSupport.stream(carService.sortByYear().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
+    private void showCarsNext() {
+        System.out.println(StreamSupport.stream(carService.getNextCars().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showCarsPrev() {
+        System.out.println(StreamSupport.stream(carService.getPrevCars().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
 
     private void showRentalFirms()
     {
@@ -399,6 +421,14 @@ public class UI {
 
     private void showEmployees() {
         System.out.println(StreamSupport.stream(employeeService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showEmployeesNext() {
+        System.out.println(StreamSupport.stream(employeeService.getNextEmployees().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showEmployeesPrev() {
+        System.out.println(StreamSupport.stream(employeeService.getPrevEmployees().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
