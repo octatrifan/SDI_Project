@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * Class for Movie entity.
+ * Class for Client entity.
  *
  * @author Tudor.
  */

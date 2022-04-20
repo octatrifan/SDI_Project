@@ -68,10 +68,10 @@ public class Car extends BaseEntity<Integer> {
 
     @Override
     public String toString() {
-        return "Car{ID=" + this.getId().toString() + '\'' +
+        return "Car{ID=" + this.getId() + '\'' + "," +
                 "brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
-                ", releaseDate=" + makeYear +
+                ", releaseDate=" + Integer.toString(makeYear) +
                 '}';
     }
 

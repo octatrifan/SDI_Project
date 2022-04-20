@@ -1,5 +1,7 @@
 package model;
 
+import java.util.BitSet;
+
 /**
  * Entity Base class
  * Client, Rental and Movie
