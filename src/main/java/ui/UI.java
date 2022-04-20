@@ -122,6 +122,14 @@ public class UI {
             new RunCommand("4", "show all", this::showGasStations),
     };
 
+    ui.UICommand[] fuelingCommands = {
+            new ui.RunCommand("0", "back", this::enterMainMenu),
+            new ui.RunCommand("1", "add", this::addFueling),
+            new ui.RunCommand("2", "remove", this::removeFueling),
+            new ui.RunCommand("3", "update", this::updateFueling),
+            new ui.RunCommand("4", "show all", this::showFuelings),
+    };
+
 
 
     public void enterClientService() {
