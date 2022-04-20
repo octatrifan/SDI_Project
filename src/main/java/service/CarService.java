@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
  * @author Dani
  */
 
-public class CarService extends AService <Integer, Car> {
+public abstract class CarService extends AService <Integer, Car> {
     public CarService(Repository<Integer, Car> repo) {
         this.repo = repo;
     }
@@ -25,9 +25,7 @@ public class CarService extends AService <Integer, Car> {
                 .collect(Collectors.toList());
     }
 
-    public Iterable<Car> sortByYear() {
-        List<Car> cars = StreamSupport.stream(this.repo.findAll().spliterator(), false).collect(Collectors.toList());
-        cars.sort(Comparator.comparing(Car::getMakeYear));
-        return cars;
-    }
+    public abstract Iterable<Car> sortByYear();
+
+    public abstract Iterable<Car> sortByBrandAndYear();
 }

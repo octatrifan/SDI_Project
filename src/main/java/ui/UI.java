@@ -54,7 +54,6 @@ class RunCommand extends UICommand {
 }
 
 public class UI {
-
     private CarService carService;
     private ClientService clientService;
     private RentalService rentalService;
@@ -104,6 +103,8 @@ public class UI {
             new RunCommand("2", "remove", this::removeCar),
             new RunCommand("3", "update", this::updateCar),
             new RunCommand("4", "show all", this::showCars),
+            new RunCommand("6", "sort by year", this::sortCarsYear),
+            new RunCommand("7", "sort by brand and year", this::sortCarsBrandYear)
     };
 
     UICommand[] employeeCommands = {
@@ -458,7 +459,19 @@ public class UI {
     }
 
     private void showCars() {
+        System.out.println(StreamSupport.stream(carService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void sortCarsYear()
+    {
         System.out.println(StreamSupport.stream(carService.sortByYear().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void sortCarsBrandYear()
+    {
+        System.out.println(StreamSupport.stream(carService.sortByBrandAndYear().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
