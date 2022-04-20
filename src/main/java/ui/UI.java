@@ -125,8 +125,8 @@ public class UI {
     ui.UICommand[] fuelingCommands = {
             new ui.RunCommand("0", "back", this::enterMainMenu),
             new ui.RunCommand("1", "add", this::addFueling),
-            //new ui.RunCommand("2", "remove", this::removeFueling),
-            //new ui.RunCommand("3", "update", this::updateFueling),
+            new ui.RunCommand("2", "remove", this::removeFueling),
+            new ui.RunCommand("3", "update", this::updateFueling),
             new ui.RunCommand("4", "show all", this::showFuelings),
     };
 
@@ -200,6 +200,39 @@ public class UI {
         fueling.setId(id);
         try {
             this.fuelingService.save(fueling);
+            System.out.println("Added id");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void removeFueling() {
+        Integer id = readInt("ID:");
+        try {
+            this.fuelingService.delete(id);
+            System.out.println("Removed by id");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void updateFueling() {
+        Integer id = readInt("ID:");
+
+        Integer carId = readInt("Car Id:");
+        Integer gasStationId = readInt("Gas Station Id:");
+
+        Date date = readDate("Date:");
+        Fueling fueling = new Fueling(carId, gasStationId, date);
+        fueling.setId(id);
+        try {
+            this.fuelingService.update(fueling);
             System.out.println("Added id");
         }
         catch (Exception e)
