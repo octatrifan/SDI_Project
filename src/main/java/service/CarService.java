@@ -3,6 +3,7 @@ package service;
 import exception.RepoException;
 import model.Car;
 import repo.Repository;
+import repo.dbRepo.PagingRepository;
 import repo.Sorting.Sort;
 
 import java.util.Comparator;
@@ -41,5 +42,15 @@ public class CarService extends AService<Integer, Car> {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Iterable<Car> getNextCars() {
+        PagingRepository <Integer, Car> repo = (PagingRepository<Integer, Car>) this.repo;
+        return repo.getNext().getContent().collect(Collectors.toList());
+    }
+
+    public Iterable<Car> getPrevCars() {
+        PagingRepository <Integer, Car> repo = (PagingRepository<Integer, Car>) this.repo;
+        return repo.getPrev().getContent().collect(Collectors.toList());
     }
 }
