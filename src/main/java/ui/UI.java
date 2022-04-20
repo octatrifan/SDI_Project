@@ -123,7 +123,6 @@ public class UI {
     };
 
 
-
     public void enterClientService() {
         showCommandList(clientCommands);
     }
