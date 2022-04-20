@@ -1,11 +1,16 @@
 package service;
 
-import model.Client;
 import model.Employee;
 import repo.Repository;
 import repo.dbRepo.PagingRepository;
 
 import java.util.stream.Collectors;
+
+/**
+ * Employee Service
+ *
+ * @author Carla
+ */
 
 public class EmployeeService extends AService<Integer, Employee> {
     public EmployeeService(Repository<Integer, Employee> repo) {

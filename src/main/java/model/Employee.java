@@ -7,7 +7,8 @@ import java.util.Objects;
 
 /**
  * Employee class
- * @author Liviu
+ *
+ * @author Carla
  */
 
 public class Employee extends BaseEntity<Integer> {
@@ -17,7 +18,8 @@ public class Employee extends BaseEntity<Integer> {
     private String email;
     private int salary;
 
-    public Employee() {}
+    public Employee() {
+    }
 
     // Constructor
     public Employee(String firstName, String lastName, Date birthDate, String email, int salary) {
@@ -94,7 +96,7 @@ public class Employee extends BaseEntity<Integer> {
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-        return "Employee{ID=" + this.getId() +'\''+
+        return "Employee{ID=" + this.getId() + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + formatter.format(birthDate) +

@@ -16,7 +16,6 @@ import java.util.Scanner;
  * XML Repo for Client Class
  *
  * @author Octa.
- *
  */
 
 
@@ -32,14 +31,15 @@ public class ClientXMLRepo extends XMLFileRepo<Integer, Client> {
                     .newDocumentBuilder()
                     .parse(fileName);
             loadData();
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     /**
      * Transforms Element into Client instance
+     *
      * @param node - the element
      * @return Client
-     *
      */
     @Override
     Client createObject(Element node) {
@@ -52,12 +52,11 @@ public class ClientXMLRepo extends XMLFileRepo<Integer, Client> {
         Date birthdate;
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         try {
-            birthdate =  formatter.parse(birthdateString);
+            birthdate = formatter.parse(birthdateString);
             Client c = new Client(firstname, lastname, birthdate, email);
             c.setId(id);
             return c;
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             Client c = new Client(firstname, lastname, null, email);
             c.setId(id);
             return c;
@@ -67,9 +66,9 @@ public class ClientXMLRepo extends XMLFileRepo<Integer, Client> {
 
     /**
      * Transforms Client instance into Element
+     *
      * @param obj - the instance
      * @return Element
-     *
      */
     @Override
     Element ElementFromObject(Client obj) {

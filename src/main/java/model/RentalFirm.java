@@ -4,25 +4,23 @@ import java.util.Objects;
 
 /**
  * Rental class
+ *
  * @author Liviu
  */
 
-public class RentalFirm extends BaseEntity<Integer>
-{
+public class RentalFirm extends BaseEntity<Integer> {
     private String rentalFirmName;
     private String address;
     private int availableCars;
 
-    public RentalFirm(String rentalFirmName, String address, int availableCars)
-    {
+    public RentalFirm(String rentalFirmName, String address, int availableCars) {
         this.rentalFirmName = rentalFirmName;
         this.address = address;
         this.availableCars = availableCars;
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RentalFirm that = (RentalFirm) o;
@@ -30,14 +28,12 @@ public class RentalFirm extends BaseEntity<Integer>
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Objects.hash(rentalFirmName, address, availableCars);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "RentalFirm{ ID=" + this.getId() +
                 ", rentalFirmName='" + rentalFirmName + '\'' +
                 ", address='" + address + '\'' +
@@ -45,33 +41,27 @@ public class RentalFirm extends BaseEntity<Integer>
                 '}';
     }
 
-    public String getRentalFirmName()
-    {
+    public String getRentalFirmName() {
         return rentalFirmName;
     }
 
-    public void setRentalFirmName(String rentalFirmName)
-    {
+    public void setRentalFirmName(String rentalFirmName) {
         this.rentalFirmName = rentalFirmName;
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address)
-    {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public int getAvailableCars()
-    {
+    public int getAvailableCars() {
         return availableCars;
     }
 
-    public void setAvailableCars(int availableCars)
-    {
+    public void setAvailableCars(int availableCars) {
         this.availableCars = availableCars;
     }
 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 
 /**
  * Fueling class
+ *
  * @author Filip
  */
 
@@ -15,30 +16,25 @@ public class Fueling extends BaseEntity<Integer> {
     private Integer GasStationID;
     private Date date;
 
-    public Fueling(Integer carID, Integer gasStationID, Date date)
-    {
+    public Fueling(Integer carID, Integer gasStationID, Date date) {
         CarID = carID;
         GasStationID = gasStationID;
         this.date = date;
     }
 
-    public Integer getCarID()
-    {
+    public Integer getCarID() {
         return CarID;
     }
 
-    public void setCarID(Integer carID)
-    {
+    public void setCarID(Integer carID) {
         this.CarID = carID;
     }
 
-    public Integer getGasStationID()
-    {
+    public Integer getGasStationID() {
         return GasStationID;
     }
 
-    public void setGasStationID(Integer gasStationID)
-    {
+    public void setGasStationID(Integer gasStationID) {
         GasStationID = gasStationID;
     }
 

@@ -14,22 +14,18 @@ import java.util.HashMap;
  */
 
 
-public class GasStationXMLRepo extends XMLFileRepo<Integer, GasStation>
-{
-    public GasStationXMLRepo(IValidator<GasStation> validator, String filename)
-    {
+public class GasStationXMLRepo extends XMLFileRepo<Integer, GasStation> {
+    public GasStationXMLRepo(IValidator<GasStation> validator, String filename) {
         this.validator = validator;
         this.fileName = filename;
         this.entities = new HashMap<>();
-        try
-        {
+        try {
             this.document = DocumentBuilderFactory
                     .newInstance()
                     .newDocumentBuilder()
                     .parse(fileName);
             loadData();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
 
@@ -40,8 +36,7 @@ public class GasStationXMLRepo extends XMLFileRepo<Integer, GasStation>
      * @return GasStation
      */
     @Override
-    GasStation createObject(Element node)
-    {
+    GasStation createObject(Element node) {
         int id = Integer.parseInt(getTextFromTagName(node, "id"));
         String gasStationName = getTextFromTagName(node, "gas_station_name");
         int gasPrice = Integer.parseInt(getTextFromTagName(node, "gasoline_price"));
@@ -59,8 +54,7 @@ public class GasStationXMLRepo extends XMLFileRepo<Integer, GasStation>
      * @return Element
      */
     @Override
-    Element ElementFromObject(GasStation gasStation)
-    {
+    Element ElementFromObject(GasStation gasStation) {
         Element element = document.createElement("gas_station");
         appendChildWithText(document, element, "id", gasStation.getId().toString());
         appendChildWithText(document, element, "gas_station_name", gasStation.getGasStationName());

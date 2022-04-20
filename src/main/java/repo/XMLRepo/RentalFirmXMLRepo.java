@@ -13,22 +13,18 @@ import java.util.HashMap;
  * @author Liviu.
  */
 
-public class RentalFirmXMLRepo extends XMLFileRepo<Integer, RentalFirm>
-{
-    public RentalFirmXMLRepo(IValidator<RentalFirm> validator, String filename)
-    {
+public class RentalFirmXMLRepo extends XMLFileRepo<Integer, RentalFirm> {
+    public RentalFirmXMLRepo(IValidator<RentalFirm> validator, String filename) {
         this.validator = validator;
         this.fileName = filename;
         this.entities = new HashMap<>();
-        try
-        {
+        try {
             this.document = DocumentBuilderFactory
                     .newInstance()
                     .newDocumentBuilder()
                     .parse(fileName);
             loadData();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
 
@@ -39,8 +35,7 @@ public class RentalFirmXMLRepo extends XMLFileRepo<Integer, RentalFirm>
      * @return RentalFirm
      */
     @Override
-    RentalFirm createObject(Element node)
-    {
+    RentalFirm createObject(Element node) {
         int id = Integer.parseInt(getTextFromTagName(node, "id"));
         String rentalFirmName = getTextFromTagName(node, "rental_firm_name");
         String address = getTextFromTagName(node, "address");
@@ -58,8 +53,7 @@ public class RentalFirmXMLRepo extends XMLFileRepo<Integer, RentalFirm>
      * @return Element
      */
     @Override
-    Element ElementFromObject(RentalFirm rentalFirm)
-    {
+    Element ElementFromObject(RentalFirm rentalFirm) {
         Element element = document.createElement("rental_firm");
         appendChildWithText(document, element, "id", rentalFirm.getId().toString());
         appendChildWithText(document, element, "rental_firm_name", rentalFirm.getRentalFirmName());
