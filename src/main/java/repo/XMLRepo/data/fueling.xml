@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <store>
-    <fueling>
-        <id>1</id>
-        <car_id>1</car_id>
-        <gas_station_id>2</gas_station_id>
-        <date>15-Apr-2022</date>
-    </fueling>
-    <fueling>
-        <id>2</id>
-        <car_id>2</car_id>
-        <gas_station_id>2</gas_station_id>
-        <date>14-Apr-2022</date>
-    </fueling>
+  <fueling>
+    <id>1</id>
+    <car_id>1</car_id>
+    <gas_station_id>2</gas_station_id>
+    <date>15-Apr-2022</date>
+  </fueling>
+  <fueling>
+    <id>2</id>
+    <car_id>2</car_id>
+    <gas_station_id>2</gas_station_id>
+    <date>14-Apr-2022</date>
+  </fueling>
+  <fueling>
+    <id>3</id>
+    <car_id>1</car_id>
+    <gas_station_id>1</gas_station_id>
+    <date>20-Apr-2022</date>
+  </fueling>
 </store>
