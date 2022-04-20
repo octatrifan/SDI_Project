@@ -24,7 +24,8 @@ public class InMemoryRepo<ID, T extends BaseEntity<ID>> implements Repository<ID
     protected Map<ID, T> entities;
     protected IValidator<T> validator;
 
-    public InMemoryRepo() { }
+    public InMemoryRepo() {
+    }
 
     public InMemoryRepo(IValidator<T> validator) {
         this.validator = validator;

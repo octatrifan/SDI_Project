@@ -18,22 +18,18 @@ import java.util.Locale;
  * @author Liviu.
  */
 
-public class RentalXMLRepo extends XMLFileRepo<Integer, Rental>
-{
-    public RentalXMLRepo(IValidator<Rental> validator, String filename)
-    {
+public class RentalXMLRepo extends XMLFileRepo<Integer, Rental> {
+    public RentalXMLRepo(IValidator<Rental> validator, String filename) {
         this.validator = validator;
         this.fileName = filename;
         this.entities = new HashMap<>();
-        try
-        {
+        try {
             this.document = DocumentBuilderFactory
                     .newInstance()
                     .newDocumentBuilder()
                     .parse(fileName);
             loadData();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
     //     private Integer RentalFirmID;
@@ -50,26 +46,24 @@ public class RentalXMLRepo extends XMLFileRepo<Integer, Rental>
      * @return Rental
      */
     @Override
-    Rental createObject(Element node)
-    {
+    Rental createObject(Element node) {
         int id = Integer.parseInt(getTextFromTagName(node, "id"));
         int rentalFirmID = Integer.parseInt(getTextFromTagName(node, "rental_firm_id"));
         int carID = Integer.parseInt(getTextFromTagName(node, "car_id"));
         int clientID = Integer.parseInt(getTextFromTagName(node, "client_id"));
         String rentDateString = getTextFromTagName(node, "rent_date");
         String deadlineDateString = getTextFromTagName(node, "deadline_date");
-        boolean isRented =  Boolean.parseBoolean(getTextFromTagName(node, "is_rented"));
+        boolean isRented = Boolean.parseBoolean(getTextFromTagName(node, "is_rented"));
 
         Date rentDate, deadlineDate;
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         try {
-            rentDate =  formatter.parse(rentDateString);
+            rentDate = formatter.parse(rentDateString);
             deadlineDate = formatter.parse(deadlineDateString);
             Rental newRental = new Rental(carID, clientID, rentalFirmID, rentDate, deadlineDate, isRented);
             newRental.setId(id);
             return newRental;
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             Rental newRental = new Rental(carID, clientID, rentalFirmID, null, null, isRented);
             newRental.setId(id);
             return newRental;
@@ -83,8 +77,7 @@ public class RentalXMLRepo extends XMLFileRepo<Integer, Rental>
      * @return Element
      */
     @Override
-    Element ElementFromObject(Rental rental)
-    {
+    Element ElementFromObject(Rental rental) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         Element element = document.createElement("rental");
         appendChildWithText(document, element, "id", rental.getId().toString());

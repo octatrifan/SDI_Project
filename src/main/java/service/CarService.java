@@ -10,11 +10,11 @@ import java.util.stream.StreamSupport;
 
 /**
  * Movie Service
- * 
+ *
  * @author Dani
  */
 
-public class CarService extends AService <Integer, Car> {
+public class CarService extends AService<Integer, Car> {
     public CarService(Repository<Integer, Car> repo) {
         this.repo = repo;
     }

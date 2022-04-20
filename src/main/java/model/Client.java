@@ -9,17 +9,16 @@ import java.util.Objects;
  * Class for Movie entity.
  *
  * @author Tudor.
- *
  */
 
-public class Client extends BaseEntity<Integer>
-{
+public class Client extends BaseEntity<Integer> {
     private String firstName;
     private String lastName;
     private Date birthDate;
     private String email;
 
-    public Client() {}
+    public Client() {
+    }
 
     // Constructor
     public Client(String firstName, String lastName, Date birthDate, String email) {

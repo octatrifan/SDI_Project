@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * Movie class
+ *
  * @author Ani
  */
 
@@ -19,8 +20,7 @@ public class GasStation extends BaseEntity<Integer> {
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GasStation that = (GasStation) o;

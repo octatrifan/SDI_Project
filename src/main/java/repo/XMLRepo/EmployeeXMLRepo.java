@@ -16,7 +16,6 @@ import java.util.Locale;
  * XML Repo for Employee Class
  *
  * @author Octa.
- *
  */
 
 
@@ -32,14 +31,15 @@ public class EmployeeXMLRepo extends XMLFileRepo<Integer, Employee> {
                     .newDocumentBuilder()
                     .parse(fileName);
             loadData();
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     /**
      * Transforms Element into Employee instance
+     *
      * @param node - the element
      * @return Client
-     *
      */
     @Override
     Employee createObject(Element node) {
@@ -53,12 +53,11 @@ public class EmployeeXMLRepo extends XMLFileRepo<Integer, Employee> {
         Date birthdate;
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         try {
-            birthdate =  formatter.parse(birthdateString);
+            birthdate = formatter.parse(birthdateString);
             Employee e = new Employee(firstname, lastname, birthdate, email, salary);
             e.setId(id);
             return e;
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             Employee e = new Employee(firstname, lastname, null, email, salary);
             e.setId(id);
             return e;
@@ -68,9 +67,9 @@ public class EmployeeXMLRepo extends XMLFileRepo<Integer, Employee> {
 
     /**
      * Transforms Employee instance into Element
+     *
      * @param obj - the instance
      * @return Element
-     *
      */
     @Override
     Element ElementFromObject(Employee obj) {

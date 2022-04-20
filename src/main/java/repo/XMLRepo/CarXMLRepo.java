@@ -17,7 +17,6 @@ import java.util.Scanner;
  * XML Repo for Car Class
  *
  * @author Octa.
- *
  */
 
 public class CarXMLRepo extends XMLFileRepo<Integer, Car> {
@@ -32,14 +31,15 @@ public class CarXMLRepo extends XMLFileRepo<Integer, Car> {
                     .newDocumentBuilder()
                     .parse(fileName);
             loadData();
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     /**
      * Transforms Element into Car instance
+     *
      * @param node - the element
      * @return Car
-     *
      */
     @Override
     Car createObject(Element node) {
@@ -55,9 +55,9 @@ public class CarXMLRepo extends XMLFileRepo<Integer, Car> {
 
     /**
      * Transforms Car instance into Element
+     *
      * @param obj - the instance
      * @return Element
-     *
      */
     @Override
     Element ElementFromObject(Car obj) {

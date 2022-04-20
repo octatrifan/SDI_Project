@@ -6,7 +6,6 @@ package model;
  * will inherit from Entity
  *
  * @author Ani.
- *
  */
 
 
