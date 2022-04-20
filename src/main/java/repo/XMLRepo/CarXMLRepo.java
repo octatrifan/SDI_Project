@@ -1,17 +1,12 @@
 package repo.XMLRepo;
 
 import model.Car;
-import model.Client;
 import org.w3c.dom.Element;
+import repo.Sorting.Sort;
 import validator.IValidator;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Scanner;
 
 /**
  * XML Repo for Car Class
@@ -19,8 +14,8 @@ import java.util.Scanner;
  * @author Octa.
  */
 
-public class CarXMLRepo extends XMLFileRepo<Integer, Car> {
-
+public class CarXMLRepo extends XMLFileRepo<Integer, Car>
+{
     public CarXMLRepo(IValidator<Car> validator, String filename) {
         this.validator = validator;
         this.fileName = filename;

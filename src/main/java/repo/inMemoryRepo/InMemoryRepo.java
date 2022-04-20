@@ -3,6 +3,7 @@ package repo.inMemoryRepo;
 import exception.ValidatorException;
 import model.BaseEntity;
 import repo.Repository;
+import repo.Sorting.Sort;
 import validator.IValidator;
 
 import java.util.HashMap;
@@ -70,6 +71,12 @@ public class InMemoryRepo<ID, T extends BaseEntity<ID>> implements Repository<ID
         }
         validator.validate(entity);
         return Optional.ofNullable(entities.computeIfPresent(entity.getId(), (k, v) -> entity));
+    }
+
+    @Override
+    public Iterable<T> sort(Sort sortMethod)
+    {
+        return sortMethod.sort(this.findAll());
     }
 }
 
