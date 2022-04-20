@@ -2,6 +2,7 @@ package repo;
 
 import exception.ValidatorException;
 import model.BaseEntity;
+import repo.Sorting.Sort;
 
 import java.util.Optional;
 
@@ -66,4 +67,6 @@ public interface Repository<ID, T extends BaseEntity<ID>> {
      *             if the entity is not valid.
      */
     Optional<T> update(T entity) throws ValidatorException;
+
+    Iterable<T> sort(Sort sortMethod);
 }

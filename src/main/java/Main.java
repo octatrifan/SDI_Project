@@ -23,7 +23,7 @@ public class Main {
 //                new FuelingService(new InMemoryRepo<Integer, Fueling>(new FuelingValidator())),
 //                new EmployeeService(new InMemoryRepo<Integer, Employee>(new EmployeeValidator())));
 
-        UI ui = new UI(new SortCarService(new CarXMLRepo(new CarValidator(), "src/main/java/repo/XMLRepo/data/car.xml")),
+        UI ui = new UI(new CarService(new CarXMLRepo(new CarValidator(), "src/main/java/repo/XMLRepo/data/car.xml")),
                 new ClientService(new ClientXMLRepo(new ClientValidator(), "src/main/java/repo/XMLRepo/data/client.xml")),
                 new RentalService(new RentalXMLRepo(new RentalValidator(), "src/main/java/repo/XMLRepo/data/rental.xml")),
                 new GasStationService(new GasStationXMLRepo(new GasStationValidator(), "src/main/java/repo/XMLRepo/data/gasstation.xml")),

@@ -1,7 +1,9 @@
 package service;
 
+import exception.RepoException;
 import model.Car;
 import repo.Repository;
+import repo.Sorting.Sort;
 
 import java.util.Comparator;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.stream.StreamSupport;
  * @author Dani
  */
 
-public abstract class CarService extends AService <Integer, Car> {
+public class CarService extends AService <Integer, Car> {
     public CarService(Repository<Integer, Car> repo) {
         this.repo = repo;
     }
@@ -25,7 +27,19 @@ public abstract class CarService extends AService <Integer, Car> {
                 .collect(Collectors.toList());
     }
 
-    public abstract Iterable<Car> sortByYear();
+    public Iterable<Car> sortByYear() {
+        return repo.sort(new Sort().by("makeYear"));
+    }
 
-    public abstract Iterable<Car> sortByBrandAndYear();
+    public Iterable<Car> sortByBrandAndYear()
+    {
+        try
+        {
+            return repo.sort(new Sort().by("brand").and(new Sort().by("makeYear").descending()));
+        } catch (RepoException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
