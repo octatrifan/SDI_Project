@@ -140,7 +140,6 @@ public class UI {
             new ui.RunCommand("4", "show all", this::showFuelings),
     };
 
-
     public void enterClientService() {
         showCommandList(clientCommands);
     }
