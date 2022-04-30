@@ -4,18 +4,16 @@ import java.util.Objects;
 
 /**
  * Movie class
+ *
  * @author Ani
  */
 
 public class GasStation extends BaseEntity<Integer> {
-
-    private int gasStationId;
     private String gasStationName;
     private int gasolinePrice;
     private int dieselPrice;
 
-    public GasStation(Integer GasStationID, String Name, Integer GasolinePrice, Integer DieselPrice) {
-        this.gasStationId = GasStationID;
+    public GasStation(String Name, Integer GasolinePrice, Integer DieselPrice) {
         this.gasStationName = Name;
         this.gasolinePrice = GasolinePrice;
         this.dieselPrice = DieselPrice;
@@ -24,32 +22,24 @@ public class GasStation extends BaseEntity<Integer> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GasStation)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         GasStation that = (GasStation) o;
-        return getGasStationId() == that.getGasStationId() && getGasolinePrice() == that.getGasolinePrice() && getDieselPrice() == that.getDieselPrice() && Objects.equals(getGasStationName(), that.getGasStationName());
+        return gasolinePrice == that.gasolinePrice && dieselPrice == that.dieselPrice && Objects.equals(gasStationName, that.gasStationName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getGasStationId(), getGasStationName(), getGasolinePrice(), getDieselPrice());
+        return Objects.hash(this.getId(), getGasStationName(), getGasolinePrice(), getDieselPrice());
     }
 
     @Override
     public String toString() {
         return "GasStation{" +
-                "gasStationId=" + gasStationId +
+                "gasStationId=" + this.getId() +
                 ", gasStationName='" + gasStationName + '\'' +
                 ", gasolinePrice=" + gasolinePrice +
                 ", dieselPrice=" + dieselPrice +
                 '}';
-    }
-
-    public int getGasStationId() {
-        return gasStationId;
-    }
-
-    public void setGasStationId(int gasStationId) {
-        this.gasStationId = gasStationId;
     }
 
     public String getGasStationName() {

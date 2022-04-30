@@ -1,7 +1,7 @@
 package ui;
 
-import model.Client;
-import model.RentalFirm;
+import exception.ValidatorException;
+import model.*;
 import service.*;
 
 import java.text.ParseException;
@@ -15,63 +15,70 @@ import java.util.stream.StreamSupport;
 abstract class UICommand {
     private final String key;
     private final String description;
+
     public UICommand(String key, String description) {
         this.key = key;
         this.description = description;
     }
+
     public abstract void execute();
+
     public String getKey() {
         return key;
     }
+
     public String getDescription() {
         return description;
     }
 }
+
 class ExitCommand extends UICommand {
     public ExitCommand(String key, String description) {
         super(key, description);
     }
+
     @Override
     public void execute() {
         System.exit(0);
     }
 }
+
 class RunCommand extends UICommand {
     private final Runnable runanble;
+
     public RunCommand(String key, String description, Runnable runnable) {
         super(key, description);
         this.runanble = runnable;
     }
+
     @Override
     public void execute() {
         try {
             runanble.run();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 }
 
 public class UI {
-
     private CarService carService;
     private ClientService clientService;
     private RentalService rentalService;
     private GasStationService gasStationService;
     private RentalFirmService rentalFirmService;
     private FuelingService fuelingService;
-
-    private final EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     UICommand[] mainCommands = {
             new ExitCommand("0", "exit"),
             new RunCommand("1", "enter client service", this::enterClientService),
-            new RunCommand("2", "enter car service", this::enterMovieService),
+            new RunCommand("2", "enter car service", this::enterCarService),
             new RunCommand("3", "enter rental service", this::enterRentalService),
             new RunCommand("4", "enter gas station service", this::enterGasStationService),
             new RunCommand("5", "enter rental firm service", this::enterRentalFirmService),
-            new RunCommand("6", "enter fueling service", this::enterFuelingService)
+            new RunCommand("6", "enter fueling service", this::enterFuelingService),
+            new RunCommand("7", "enter employee service", this::enterEmployeeService),
     };
 
     UICommand[] clientCommands = {
@@ -80,6 +87,17 @@ public class UI {
             new RunCommand("2", "remove", this::removeClient),
             new RunCommand("3", "update", this::updateClient),
             new RunCommand("4", "show all", this::showClients),
+            new RunCommand("5", "next page", this::showClientsNext),
+            new RunCommand("6", "prev page", this::showClientsPrev),
+    };
+
+
+    UICommand[] rentalCommands = {
+            new RunCommand("0", "back", this::enterMainMenu),
+            new RunCommand("1", "add", this::addRental),
+            new RunCommand("2", "remove", this::removeRental),
+            new RunCommand("3", "update", this::updateRental),
+            new RunCommand("4", "show all", this::showRentals),
     };
 
     UICommand[] rentalFirmCommands = {
@@ -90,28 +108,69 @@ public class UI {
             new RunCommand("4", "show all", this::showRentalFirms),
     };
 
+    UICommand[] carCommands = {
+            new RunCommand("0", "back", this::enterMainMenu),
+            new RunCommand("1", "add", this::addCar),
+            new RunCommand("2", "remove", this::removeCar),
+            new RunCommand("3", "update", this::updateCar),
+            new RunCommand("4", "show all", this::showCars),
+            new RunCommand("5", "next page", this::showCarsNext),
+            new RunCommand("6", "prev page", this::showCarsPrev),
+            new RunCommand("7", "sort by year", this::sortCarsYear),
+            new RunCommand("8", "sort by brand and year", this::sortCarsBrandYear)
+    };
+
+    UICommand[] employeeCommands = {
+            new RunCommand("0", "back", this::enterMainMenu),
+            new RunCommand("1", "add", this::addEmployee),
+            new RunCommand("2", "remove", this::removeEmployee),
+            new RunCommand("3", "update", this::updateEmployee),
+            new RunCommand("4", "show all", this::showEmployees),
+            new RunCommand("5", "next page", this::showEmployeesNext),
+            new RunCommand("6", "prev page", this::showEmployeesPrev),
+    };
+
+    UICommand[] gasStationCommands = {
+            new RunCommand("0", "back", this::enterMainMenu),
+            new RunCommand("1", "add", this::addGasStation),
+            new RunCommand("2", "remove", this::removeGasStation),
+            new RunCommand("3", "update", this::updateGasStation),
+            new RunCommand("4", "show all", this::showGasStations),
+    };
+
+    ui.UICommand[] fuelingCommands = {
+            new ui.RunCommand("0", "back", this::enterMainMenu),
+            new ui.RunCommand("1", "add", this::addFueling),
+            new ui.RunCommand("2", "remove", this::removeFueling),
+            new ui.RunCommand("3", "update", this::updateFueling),
+            new ui.RunCommand("4", "show all", this::showFuelings),
+    };
+
     public void enterClientService() {
         showCommandList(clientCommands);
     }
 
-    public void enterMovieService() {
-
+    public void enterRentalService() {
+        showCommandList(rentalCommands);
     }
 
-    public void enterRentalService() {
-
+    public void enterCarService() {
+        showCommandList(carCommands);
     }
 
     public void enterGasStationService() {
-
+        showCommandList(gasStationCommands);
     }
 
     public void enterFuelingService() {
-
+        showCommandList(fuelingCommands);
     }
 
-    private void enterRentalFirmService()
-    {
+    public void enterEmployeeService() {
+        showCommandList(employeeCommands);
+    }
+
+    private void enterRentalFirmService() {
         showCommandList(rentalFirmCommands);
     }
 
@@ -136,11 +195,62 @@ public class UI {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         try {
             return formatter.parse(str);
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             System.out.println("Invalid Date!");
             return readDate(msg);
         }
+    }
+
+    private void addFueling() {
+        Integer id = readInt("ID:");
+
+        Integer carId = readInt("Car Id:");
+        Integer gasStationId = readInt("Gas Station Id:");
+
+        Date date = readDate("Date:");
+        Fueling fueling = new Fueling(carId, gasStationId, date);
+        fueling.setId(id);
+        try {
+            this.fuelingService.save(fueling);
+            System.out.println("Added id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void removeFueling() {
+        Integer id = readInt("ID:");
+        try {
+            this.fuelingService.delete(id);
+            System.out.println("Removed by id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void updateFueling() {
+        Integer id = readInt("ID:");
+
+        Integer carId = readInt("Car Id:");
+        Integer gasStationId = readInt("Gas Station Id:");
+
+        Date date = readDate("Date:");
+        Fueling fueling = new Fueling(carId, gasStationId, date);
+        fueling.setId(id);
+        try {
+            this.fuelingService.update(fueling);
+            System.out.println("Added id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void showFuelings() {
+        System.out.println(StreamSupport.stream(fuelingService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
     private void addClient() {
@@ -154,29 +264,88 @@ public class UI {
         try {
             this.clientService.save(client);
             System.out.println("Added id");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("Please try again!");
         }
+    }
 
-    }
     private void removeClient() {
-        System.out.println("Removed client");
+        Integer id = readInt("ID:");
+        try {
+            this.clientService.delete(id);
+            System.out.println("Removed by id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
     }
+
     private void updateClient() {
-        System.out.println("Updated client");
+        Integer id = readInt("ID:");
+        String firstName = readString("First name:");
+        String lastName = readString("Last name:");
+        String email = readString("Email:");
+        Date date = readDate("Birth date:");
+        Client client = new Client(firstName, lastName, date, email);
+        client.setId(id);
+        try {
+            this.clientService.update(client);
+            System.out.println("Updated client");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
     }
+
     private void showClients() {
         System.out.println(StreamSupport.stream(clientService.findAll().spliterator(), false)
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
+    private void showClientsNext() {
+        System.out.println(StreamSupport.stream(clientService.getNextClients().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showClientsPrev() {
+        System.out.println(StreamSupport.stream(clientService.getPrevClients().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void addRental() {
+        Integer id = readInt("ID:");
+        Integer CarID = readInt("Car ID:");
+        Integer ClientID = readInt("Client ID:");
+        Integer RentalFirmID = readInt("Rental Firm ID:");
+        Date rentDate = readDate("Rent date:");
+        Date deadlineDate = readDate("Deadline date:");
+//        Boolean isRented = readBoolean("Is rented: ");
+        Rental rental = new Rental(CarID, ClientID, RentalFirmID, rentDate, deadlineDate, true);
+        rental.setId(id);
+
+        this.rentalService.save(rental);
+        System.out.println("Added id");
+        try {
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void removeRental() {
+        Integer id = readInt("ID:");
+        try {
+            this.rentalService.delete(id);
+            System.out.println("Removed by id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     // RentalFirm UI part
 
-    private void addRentalFirm()
-    {
+    private void addRentalFirm() {
         Integer id = readInt("ID:");
         String name = readString("Name:");
         String address = readString("Address:");
@@ -186,30 +355,92 @@ public class UI {
         try {
             this.rentalFirmService.save(rentalFirm);
             System.out.println("Added rental firm");
-        }
-        catch (Exception e)
-        {
+
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("Please try again!");
         }
     }
 
-    private void removeRentalFirm()
-    {
+    private void updateRental() {
+        Integer id = readInt("ID:");
+        Integer CarID = readInt("Car ID:");
+        Integer ClientID = readInt("Client ID:");
+        Integer RentalFirmID = readInt("Rental Firm ID:");
+        Date rentDate = readDate("Rent date:");
+        Date deadlineDate = readDate("Deadline date:");
+//        Boolean isRented = readBoolean("Is rented: ");
+        Rental rental = new Rental(CarID, ClientID, RentalFirmID, rentDate, deadlineDate, true);
+        rental.setId(id);
+        try {
+            this.rentalService.update(rental);
+            System.out.println("Added id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void showRentals() {
+        System.out.println(StreamSupport.stream(rentalService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void addCar() {
+        Integer id = readInt("ID:");
+        String brand = readString("Brand:");
+        String model = readString("Model:");
+        Integer year = readInt("Year:");
+        Car car = new Car(brand, model, year);
+        car.setId(id);
+
+        this.carService.save(car);
+        System.out.println("Added id");
+
+    }
+
+
+    private void removeRentalFirm() {
         Integer id = readInt("ID:");
         try {
             this.rentalFirmService.delete(id);
             System.out.println("Deleted rental firm");
-        }
-        catch (Exception e)
-        {
+
+        } catch (Exception e) {
             System.out.println(e);
-            System.out.println("Rental firm cannot be deleted!");
+
+            System.out.println("Please try again!");
         }
     }
 
-    private void updateRentalFirm()
-    {
+    private void removeCar() {
+        Integer id = readInt("ID:");
+        try {
+            this.carService.delete(id);
+            System.out.println("Removed by id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void updateCar() {
+        Integer id = readInt("ID:");
+        String brand = readString("Brand:");
+        String model = readString("Model:");
+        Integer year = readInt("Year:");
+        Car car = new Car(brand, model, year);
+        car.setId(id);
+        try {
+            this.carService.update(car);
+            System.out.println("Added id");
+            System.out.println("Rental firm cannot be deleted!");
+        } catch (ValidatorException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateRentalFirm() {
         Integer id = readInt("ID:");
         String name = readString("New name:");
         String address = readString("New address:");
@@ -219,12 +450,36 @@ public class UI {
         try {
             this.rentalFirmService.update(rentalFirm);
             System.out.println("Updated rental firm");
-        }
-        catch (Exception e)
-        {
+
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("Please try again!");
         }
+    }
+
+    private void showCars() {
+        System.out.println(StreamSupport.stream(carService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void sortCarsYear()
+    {
+        System.out.println(StreamSupport.stream(carService.sortByYear().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showCarsNext() {
+        System.out.println(StreamSupport.stream(carService.getNextCars().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showCarsPrev() {
+        System.out.println(StreamSupport.stream(carService.getPrevCars().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void sortCarsBrandYear()
+    {
+        System.out.println(StreamSupport.stream(carService.sortByBrandAndYear().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
     private void showRentalFirms()
@@ -233,10 +488,120 @@ public class UI {
                 .map(Object::toString).collect(Collectors.joining("\n")));
     }
 
-    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService, EmployeeService employeeService) {
+    private void addEmployee() {
+        Integer id = readInt("ID:");
+        String firstName = readString("First name:");
+        String lastName = readString("Last name:");
+        String email = readString("Email:");
+        Date date = readDate("Birth date:");
+        Integer salary = readInt("Salary:");
+        Employee employee = new Employee(firstName, lastName, date, email, salary);
+        employee.setId(id);
+        try {
+            this.employeeService.save(employee);
+            System.out.println("Added employee");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void removeEmployee() {
+        Integer id = readInt("ID:");
+        try {
+            this.employeeService.delete(id);
+            System.out.println("Removed by id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void updateEmployee() {
+        Integer id = readInt("ID:");
+        String firstName = readString("First name:");
+        String lastName = readString("Last name:");
+        String email = readString("Email:");
+        Date date = readDate("Birth date:");
+        Integer salary = readInt("Salary:");
+        Employee employee = new Employee(firstName, lastName, date, email, salary);
+        employee.setId(id);
+        try {
+            this.employeeService.update(employee);
+            System.out.println("Updated employee");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void showEmployees() {
+        System.out.println(StreamSupport.stream(employeeService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showEmployeesNext() {
+        System.out.println(StreamSupport.stream(employeeService.getNextEmployees().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+    private void showEmployeesPrev() {
+        System.out.println(StreamSupport.stream(employeeService.getPrevEmployees().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void addGasStation() {
+        Integer id = readInt("ID:");
+        String gasStationName = readString("Station Name:");
+        Integer gasolinePrice = readInt("Gas Price:");
+        Integer dieselPrice = readInt("Diesel Price:");
+
+        GasStation station = new GasStation(gasStationName, gasolinePrice, dieselPrice);
+        station.setId(id);
+        try {
+            this.gasStationService.save(station);
+            System.out.println("Added id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void removeGasStation() {
+        Integer id = readInt("ID:");
+        try {
+            this.gasStationService.delete(id);
+            System.out.println("Removed by id");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    private void showGasStations() {
+        System.out.println(StreamSupport.stream(gasStationService.findAll().spliterator(), false)
+                .map(Object::toString).collect(Collectors.joining("\n")));
+    }
+
+    private void updateGasStation() {
+        Integer id = readInt("ID:");
+        String gasStationName = readString("Station Name:");
+        Integer gasolinePrice = readInt("Gas Price:");
+        Integer dieselPrice = readInt("Diesel Price:");
+
+        GasStation station = new GasStation(gasStationName, gasolinePrice, dieselPrice);
+        station.setId(id);
+        try {
+            this.gasStationService.update(station);
+            System.out.println("Updated client");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Please try again!");
+        }
+    }
+
+    public UI(CarService carService, ClientService clientService, RentalService rentalService, GasStationService gasStationService, RentalFirmService rentalFirmService, FuelingService fuelingService, EmployeeService employeeService) {
         this.carService = carService;
         this.clientService = clientService;
-        this.rentalService  = rentalService;
+        this.rentalService = rentalService;
         this.gasStationService = gasStationService;
         this.rentalFirmService = rentalFirmService;
         this.fuelingService = fuelingService;
@@ -247,7 +612,7 @@ public class UI {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             for (UICommand command : cmdList) {
-                String line=String.format("%4s : %s", command.getKey(), command.getDescription());
+                String line = String.format("%4s : %s", command.getKey(), command.getDescription());
                 System.out.println(line);
             }
             System.out.println("Input the option: ");

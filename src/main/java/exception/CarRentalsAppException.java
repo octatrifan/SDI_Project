@@ -2,9 +2,10 @@ package exception;
 
 /**
  * Base Exception class
+ *
  * @author Octa
  */
-public class CarRentalsAppException extends RuntimeException{
+public class CarRentalsAppException extends RuntimeException {
 
     public CarRentalsAppException(String message) {
         super(message);

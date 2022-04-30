@@ -4,8 +4,6 @@ package exception;
  * Base Validator exception class.
  *
  * @author Dani
- *
- *
  */
 
 public class ValidatorException extends CarRentalsAppException {

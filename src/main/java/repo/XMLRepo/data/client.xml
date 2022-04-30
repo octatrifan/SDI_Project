@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<store>
+  <client>
+    <id>1</id>
+    <firstname>Octa</firstname>
+    <lastname>Trifan</lastname>
+    <birthdate>05-Apr-2002</birthdate>
+    <email>octatrifan@gmail.com</email>
+  </client>
+  <client>
+    <id>2</id>
+    <firstname>Liviu</firstname>
+    <lastname>Terebes</lastname>
+    <birthdate>01-Jun-2001</birthdate>
+    <email>liviut@yahoo.com</email>
+  </client>
+</store>

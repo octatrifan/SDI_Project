@@ -1,7 +1,10 @@
 package service;
 
+import exception.RepoException;
 import model.Car;
 import repo.Repository;
+import repo.dbRepo.PagingRepository;
+import repo.Sorting.Sort;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,11 +13,11 @@ import java.util.stream.StreamSupport;
 
 /**
  * Movie Service
- * 
+ *
  * @author Dani
  */
 
-public class CarService extends AService <Integer, Car> {
+public class CarService extends AService<Integer, Car> {
     public CarService(Repository<Integer, Car> repo) {
         this.repo = repo;
     }
@@ -26,7 +29,28 @@ public class CarService extends AService <Integer, Car> {
     }
 
     public Iterable<Car> sortByYear() {
-        return StreamSupport.stream(this.repo.findAll().spliterator(), false)
-                .sorted(Comparator.comparing(Car::getMakeYear)).collect(Collectors.toList());
+        return repo.sort(new Sort().by("makeYear"));
+    }
+
+    public Iterable<Car> sortByBrandAndYear()
+    {
+        try
+        {
+            return repo.sort(new Sort().by("brand").and(new Sort().by("makeYear").descending()));
+        } catch (RepoException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Iterable<Car> getNextCars() {
+        PagingRepository <Integer, Car> repo = (PagingRepository<Integer, Car>) this.repo;
+        return repo.getNext().getContent().collect(Collectors.toList());
+    }
+
+    public Iterable<Car> getPrevCars() {
+        PagingRepository <Integer, Car> repo = (PagingRepository<Integer, Car>) this.repo;
+        return repo.getPrev().getContent().collect(Collectors.toList());
     }
 }

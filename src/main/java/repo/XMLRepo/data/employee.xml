@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<store>
+  <client>
+    <id>4</id>
+    <firstname>Carla</firstname>
+    <lastname>Todoran</lastname>
+    <birthdate>12-Jun-2002</birthdate>
+    <email>carlat@yahoo.com</email>
+    <salary>1500</salary>
+  </client>
+  <client>
+    <id>3</id>
+    <firstname>Anastasia</firstname>
+    <lastname>Susciuc</lastname>
+    <birthdate>07-Jun-2002</birthdate>
+    <email>anis@yahoo.com</email>
+    <salary>1800</salary>
+  </client>
+  <client>
+    <id>1</id>
+    <firstname>Octa</firstname>
+    <lastname>Trifan</lastname>
+    <birthdate>05-Apr-2002</birthdate>
+    <email>octatrifan@gmail.com</email>
+    <salary>1000</salary>
+  </client>
+  <client>
+    <id>2</id>
+    <firstname>Liviu</firstname>
+    <lastname>Terebes</lastname>
+    <birthdate>01-Jun-2001</birthdate>
+    <email>liviut@yahoo.com</email>
+    <salary>2000</salary>
+  </client>
+</store>

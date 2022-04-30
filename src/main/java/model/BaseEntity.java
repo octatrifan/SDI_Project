@@ -1,12 +1,13 @@
 package model;
 
+import java.util.BitSet;
+
 /**
  * Entity Base class
  * Client, Rental and Movie
  * will inherit from Entity
  *
  * @author Ani.
- *
  */
 
 

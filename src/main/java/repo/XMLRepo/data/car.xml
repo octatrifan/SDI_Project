@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<store>
+  <car>
+    <id>1</id>
+    <brand>Toyota</brand>
+    <model>Auris</model>
+    <makeyear>2001</makeyear>
+  </car>
+  <car>
+    <id>2</id>
+    <brand>Peugeot</brand>
+    <model>3008</model>
+    <makeyear>2020</makeyear>
+  </car>
+  <car>
+    <id>3</id>
+    <brand>Toyota</brand>
+    <model>Auris</model>
+    <makeyear>1999</makeyear>
+  </car>
+  <car>
+    <id>4</id>
+    <brand>Toyota</brand>
+    <model>Auris</model>
+    <makeyear>2005</makeyear>
+  </car>
+</store>

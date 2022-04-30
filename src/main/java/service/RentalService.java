@@ -6,6 +6,7 @@ import repo.Repository;
 
 /**
  * Rental Service
+ *
  * @author Carla
  */
 

@@ -5,6 +5,7 @@ import java.util.Objects;
 
 /**
  * Car domain class
+ *
  * @author Dani
  */
 
@@ -67,10 +68,10 @@ public class Car extends BaseEntity<Integer> {
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "Car{ID=" + this.getId() + '\'' + "," +
                 "brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
-                ", releaseDate=" + makeYear +
+                ", releaseDate=" + Integer.toString(makeYear) +
                 '}';
     }
 

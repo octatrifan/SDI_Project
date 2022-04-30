@@ -19,7 +19,7 @@ public class GasStationValidator implements IValidator<GasStation> {
 
         Optional.of(gasStation.getDieselPrice())
                 .filter(x -> x <= 0)
-                .ifPresent(s -> { throw new ValidatorException("Error: Found negative ID for rental movie!"); });
+                .ifPresent(s -> { throw new ValidatorException("Error: Found negative ID for rental car!"); });
 
         Optional.of(gasStation.getId())
                 .filter(x -> x <= 0)

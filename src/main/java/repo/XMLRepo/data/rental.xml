@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<store>
+  <rental>
+    <id>1</id>
+    <rental_firm_id>2</rental_firm_id>
+    <car_id>2</car_id>
+    <client_id>1</client_id>
+    <rent_date>12-Apr-2022</rent_date>
+    <deadline_date>04-Jun-2022</deadline_date>
+    <is_rented>true</is_rented>
+  </rental>
+  <rental>
+    <id>2</id>
+    <rental_firm_id>1</rental_firm_id>
+    <car_id>1</car_id>
+    <client_id>2</client_id>
+    <rent_date>18-Feb-2021</rent_date>
+    <deadline_date>19-Feb-2022</deadline_date>
+    <is_rented>true</is_rented>
+  </rental>
+</store>
